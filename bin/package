@@ -32,8 +32,11 @@ main() {
 
   # Installing a package from GitHub and the filesystem works a bit differently.
   # The filesystem has a '/' at the start
-  if [[ "${package}" =~ / ]] && [[ ! "${package}" =~ ^/ ]]; then
-    package="${package}#${version}"
+  if [[ "${package}" =~ / ]]; then
+    if [[ ! "${package}" =~ ^/ ]]; then
+      package="${package}#${version}"
+  else
+    package="${package}@${version}"
   fi
 
   if [ -z "$output" ]; then
